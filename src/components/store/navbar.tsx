@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   SignInButton,
   Show,
@@ -13,8 +13,6 @@ import {
   ShoppingBag,
   Heart,
   Menu,
-  X,
-  ChevronDown,
 } from "lucide-react";
 
 function InstagramIcon({ className }: { className?: string }) {
@@ -43,7 +41,7 @@ import { Badge } from "@/components/ui/badge";
 import { ThemeToggle } from "@/components/shared/theme-toggle";
 import { useCartStore } from "@/stores/cart-store";
 import { useWishlistStore } from "@/stores/wishlist-store";
-import { NAV_LINKS, SITE_NAME } from "@/lib/constants";
+import { SITE_NAME } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import type { Category } from "@/types";
 
@@ -54,14 +52,25 @@ interface NavbarProps {
 export function Navbar({ categories = [] }: NavbarProps) {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
-  const [hoveredGender, setHoveredGender] = useState<string | null>(null);
-  const [expandedMobileGender, setExpandedMobileGender] = useState<string | null>(null);
+  const [activeQuery, setActiveQuery] = useState("");
   const cartItemCount = useCartStore((s) => s.getItemCount());
   const wishlistCount = useWishlistStore((s) => s.items.length);
 
-  const toggleMobileGender = (gender: string) => {
-    setExpandedMobileGender(expandedMobileGender === gender ? null : gender);
-  };
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setActiveQuery(window.location.search);
+    }
+  }, [pathname]);
+
+  const navLinks = [
+    { label: "Home", href: "/" },
+    ...categories.map((cat) => ({
+      label: cat.name,
+      href: `/products?category=${cat.slug}`,
+    })),
+    { label: "New Arrivals", href: "/products?sort=newest" },
+    { label: "Best Sellers", href: "/products?sort=popular" },
+  ];
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/60">
@@ -76,49 +85,10 @@ export function Navbar({ categories = [] }: NavbarProps) {
           <SheetContent side="left" className="w-72">
             <SheetTitle className="text-lg font-bold">{SITE_NAME}</SheetTitle>
             <nav className="mt-8 flex flex-col gap-4">
-              {NAV_LINKS.map((link) => {
-                const hasDropdown = 'hasDropdown' in link && link.hasDropdown;
-                const gender = 'gender' in link ? link.gender : '';
-                
-                if (hasDropdown && gender) {
-                  const isExpanded = expandedMobileGender === gender;
-                  return (
-                    <div key={link.href} className="space-y-2">
-                      <button
-                        onClick={() => toggleMobileGender(gender)}
-                        className={cn(
-                          "w-full flex items-center justify-between text-base font-medium transition-colors hover:text-primary py-1",
-                          isExpanded ? "text-primary" : "text-muted-foreground"
-                        )}
-                      >
-                        <span>{link.label}</span>
-                        <ChevronDown className={cn("h-4 w-4 transition-transform duration-250", isExpanded ? "rotate-180" : "")} />
-                      </button>
-                      
-                      {isExpanded && (
-                        <div className="pl-4 flex flex-col gap-2 border-l-2 ml-1 border-primary/20 animate-in slide-in-from-top-1 duration-200">
-                          <Link
-                            href={link.href}
-                            onClick={() => setIsOpen(false)}
-                            className="text-sm text-muted-foreground hover:text-primary transition-colors py-1"
-                          >
-                            Shop All {link.label}&apos;s Footwear
-                          </Link>
-                          {categories.map((cat) => (
-                            <Link
-                              key={cat.id}
-                              href={`/products?category=${cat.slug}&gender=${gender}`}
-                              onClick={() => setIsOpen(false)}
-                              className="text-sm text-muted-foreground hover:text-primary transition-colors py-1"
-                            >
-                              {cat.name}
-                            </Link>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  );
-                }
+              {navLinks.map((link) => {
+                const isLinkActive = link.href.includes("?")
+                  ? pathname === link.href.split("?")[0] && activeQuery.includes(link.href.split("?")[1])
+                  : pathname === link.href;
 
                 return (
                   <Link
@@ -127,8 +97,8 @@ export function Navbar({ categories = [] }: NavbarProps) {
                     onClick={() => setIsOpen(false)}
                     className={cn(
                       "text-base font-medium transition-colors hover:text-primary py-1",
-                      pathname === link.href
-                        ? "text-primary"
+                      isLinkActive
+                        ? "text-primary font-semibold"
                         : "text-muted-foreground"
                     )}
                   >
@@ -153,63 +123,10 @@ export function Navbar({ categories = [] }: NavbarProps) {
 
         {/* Desktop nav */}
         <nav className="hidden lg:flex items-center gap-6">
-          {NAV_LINKS.map((link) => {
-            const hasDropdown = 'hasDropdown' in link && link.hasDropdown;
-            const gender = 'gender' in link ? link.gender : '';
-
-            if (hasDropdown && gender) {
-              const isHovered = hoveredGender === gender;
-              return (
-                <div
-                  key={link.href}
-                  className="relative py-5"
-                  onMouseEnter={() => setHoveredGender(gender)}
-                  onMouseLeave={() => setHoveredGender(null)}
-                >
-                  <Link
-                    href={link.href}
-                    className={cn(
-                      "text-sm font-medium transition-colors hover:text-primary flex items-center gap-1",
-                      pathname === link.href || (pathname.startsWith("/products") && pathname.includes(`gender=${gender}`))
-                        ? "text-primary font-semibold"
-                        : "text-muted-foreground"
-                    )}
-                  >
-                    {link.label}
-                    <ChevronDown className={cn("h-3.5 w-3.5 opacity-60 transition-transform duration-200", isHovered ? "rotate-180" : "")} />
-                  </Link>
-                  {pathname === link.href && (
-                    <span className="absolute -bottom-[0.5px] left-0 right-0 h-0.5 bg-primary animate-in fade-in" />
-                  )}
-
-                  {/* Dropdown panel */}
-                  {isHovered && (
-                    <div className="absolute top-[52px] left-0 mt-1 w-56 rounded-xl border bg-popover/95 backdrop-blur-md p-2 text-popover-foreground shadow-lg animate-in fade-in slide-in-from-top-2 duration-200 z-50">
-                      <div className="space-y-1">
-                        <Link
-                          href={link.href}
-                          className="block px-3 py-2 text-xs font-semibold hover:bg-accent rounded-lg transition-colors"
-                          onClick={() => setHoveredGender(null)}
-                        >
-                          Shop All {link.label}&apos;s Footwear
-                        </Link>
-                        <div className="-mx-2 my-1 h-px bg-muted" />
-                        {categories.map((cat) => (
-                          <Link
-                            key={cat.id}
-                            href={`/products?category=${cat.slug}&gender=${gender}`}
-                            className="block px-3 py-2 text-xs hover:bg-accent hover:text-foreground rounded-lg transition-colors font-medium text-muted-foreground"
-                            onClick={() => setHoveredGender(null)}
-                          >
-                            {link.label}&apos;s {cat.name}
-                          </Link>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              );
-            }
+          {navLinks.map((link) => {
+            const isLinkActive = link.href.includes("?")
+              ? pathname === link.href.split("?")[0] && activeQuery.includes(link.href.split("?")[1])
+              : pathname === link.href;
 
             return (
               <Link
@@ -217,14 +134,14 @@ export function Navbar({ categories = [] }: NavbarProps) {
                 href={link.href}
                 className={cn(
                   "text-sm font-medium transition-colors hover:text-primary relative",
-                  pathname === link.href
-                    ? "text-primary"
+                  isLinkActive
+                    ? "text-primary font-semibold"
                     : "text-muted-foreground"
                 )}
               >
                 {link.label}
-                {pathname === link.href && (
-                  <span className="absolute -bottom-[21px] left-0 right-0 h-0.5 bg-primary" />
+                {isLinkActive && (
+                  <span className="absolute -bottom-[21px] left-0 right-0 h-0.5 bg-primary animate-in fade-in" />
                 )}
               </Link>
             );
