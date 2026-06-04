@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { getAllCategories } from "@/actions/categories";
-import { updateProductWithDetails } from "@/actions/products";
 import { ProductForm } from "@/components/admin/product-form";
 
 interface Props {
@@ -28,17 +27,10 @@ export default async function EditProductPage({ params }: Props) {
     notFound();
   }
 
-  // Server action to update the product from the form
-  async function handleSubmit(data: any) {
-    "use server";
-    await updateProductWithDetails(id, data);
-  }
-
   return (
     <ProductForm
       categories={categories}
       initialData={product}
-      onSubmit={handleSubmit}
       title="Edit Product"
     />
   );

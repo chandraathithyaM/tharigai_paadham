@@ -15,15 +15,15 @@ import { toast } from "sonner";
 import Link from "next/link";
 import { slugify } from "@/lib/utils";
 import type { Category } from "@/types";
+import { createProductWithDetails, updateProductWithDetails } from "@/actions/products";
 
 interface ProductFormProps {
   categories: Category[];
   initialData?: any; // For editing
-  onSubmit: (data: any) => Promise<void>;
   title: string;
 }
 
-export function ProductForm({ categories, initialData, onSubmit, title }: ProductFormProps) {
+export function ProductForm({ categories, initialData, title }: ProductFormProps) {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = React.useState(false);
 
@@ -159,7 +159,7 @@ export function ProductForm({ categories, initialData, onSubmit, title }: Produc
 
     setIsSubmitting(true);
     try {
-      await onSubmit({
+      const productPayload = {
         product: {
           ...product,
           price: parseFloat(product.price as string),
@@ -171,8 +171,15 @@ export function ProductForm({ categories, initialData, onSubmit, title }: Produc
         images: filteredImages,
         sizes: filteredSizes,
         colors: filteredColors,
-      });
-      toast.success(initialData ? "Product updated!" : "Product created!");
+      };
+
+      if (initialData?.id) {
+        await updateProductWithDetails(initialData.id, productPayload);
+        toast.success("Product updated!");
+      } else {
+        await createProductWithDetails(productPayload);
+        toast.success("Product created!");
+      }
       router.push("/admin/products");
       router.refresh();
     } catch (err: any) {
