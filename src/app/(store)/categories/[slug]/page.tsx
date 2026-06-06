@@ -41,8 +41,8 @@ export default async function CategoryPage({ params }: Props) {
       {/* Breadcrumbs & Back */}
       <div className="mb-6 flex items-center justify-between">
         <Button variant="ghost" size="sm" asChild className="-ml-3">
-          <Link href="/products" className="flex items-center gap-2">
-            <ArrowLeft className="h-4 w-4" /> Back to all products
+          <Link href="/" className="flex items-center gap-2">
+            <ArrowLeft className="h-4 w-4" /> Back to Home
           </Link>
         </Button>
       </div>
