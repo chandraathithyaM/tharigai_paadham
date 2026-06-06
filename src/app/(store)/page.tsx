@@ -139,16 +139,35 @@ export default async function HomePage() {
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 mt-10">
             {categories.slice(0, 10).map((category, i) => (
               <Link key={category.id} href={`/categories/${category.slug}`}>
-                <Card className="group overflow-hidden product-card-hover border border-border/50 shadow-sm hover:shadow-md rounded-2xl">
-                  <CardContent className="p-6 text-center space-y-3">
-                    <div
-                      className="h-16 w-16 mx-auto rounded-2xl flex items-center justify-center text-2xl font-bold text-primary bg-primary/8 group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300"
-                      style={{ animationDelay: `${i * 0.1}s` }}
-                    >
-                      {category.name.charAt(0)}
-                    </div>
-                    <h3 className="font-medium text-sm">{category.name}</h3>
-                  </CardContent>
+                <Card className="group overflow-hidden product-card-hover border border-border/50 shadow-sm hover:shadow-md rounded-2xl transition-all duration-300 relative aspect-[4/5] h-full flex flex-col justify-end">
+                  {category.image_url ? (
+                    <>
+                      <img
+                        src={category.image_url}
+                        alt={category.name}
+                        className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent z-10" />
+                      <div className="relative z-20 p-5 text-left space-y-1">
+                        <span className="text-[10px] uppercase font-semibold text-primary-foreground/70 tracking-wider">
+                          Collection
+                        </span>
+                        <h3 className="font-bold text-white text-base md:text-lg tracking-tight group-hover:translate-x-1 transition-transform duration-300">
+                          {category.name}
+                        </h3>
+                      </div>
+                    </>
+                  ) : (
+                    <CardContent className="p-6 text-center space-y-3 h-full flex flex-col justify-center bg-card">
+                      <div
+                        className="h-16 w-16 mx-auto rounded-2xl flex items-center justify-center text-2xl font-bold text-primary bg-primary/8 group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300"
+                        style={{ animationDelay: `${i * 0.1}s` }}
+                      >
+                        {category.name.charAt(0)}
+                      </div>
+                      <h3 className="font-medium text-sm text-foreground">{category.name}</h3>
+                    </CardContent>
+                  )}
                 </Card>
               </Link>
             ))}

@@ -1,40 +1,14 @@
-import { getAllCategories, createCategory, deleteCategory } from "@/actions/categories";
+import { getAllCategories, deleteCategory } from "@/actions/categories";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Switch } from "@/components/ui/switch";
-import { Trash2, Plus, Grid, Loader2 } from "lucide-react";
+import { Trash2, Grid } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { slugify } from "@/lib/utils";
+import { CategoryForm } from "@/components/admin/category-form";
 
 export default async function AdminCategoriesPage() {
   const categories = await getAllCategories();
-
-  // Server actions for CRUD
-  async function handleCreateCategory(formData: FormData) {
-    "use server";
-    const name = formData.get("name") as string;
-    const description = formData.get("description") as string;
-    const sort_order = parseInt(formData.get("sort_order") as string) || 0;
-    const is_active = formData.get("is_active") === "true";
-
-    if (!name) return;
-
-    await createCategory({
-      name,
-      slug: slugify(name),
-      description: description || undefined,
-      sort_order,
-      is_active,
-    });
-
-    revalidatePath("/admin/categories");
-    redirect("/admin/categories");
-  }
 
   async function handleDeleteCategory(formData: FormData) {
     "use server";
@@ -71,6 +45,7 @@ export default async function AdminCategoriesPage() {
                 <table className="w-full text-left text-sm">
                   <thead className="bg-muted/40 font-medium text-muted-foreground border-b text-xs uppercase tracking-wider">
                     <tr>
+                      <th className="p-4 w-16">Preview</th>
                       <th className="p-4">Name</th>
                       <th className="p-4">Slug</th>
                       <th className="p-4">Order</th>
@@ -82,6 +57,15 @@ export default async function AdminCategoriesPage() {
                     {categories.length > 0 ? (
                       categories.map((cat) => (
                         <tr key={cat.id} className="hover:bg-muted/30 transition-colors">
+                          <td className="p-4">
+                            <div className="relative h-10 w-10 rounded-md border overflow-hidden shrink-0 bg-muted/20 flex items-center justify-center">
+                              {cat.image_url ? (
+                                <img src={cat.image_url} alt={cat.name} className="object-cover h-full w-full" />
+                              ) : (
+                                <Grid className="h-4 w-4 text-muted-foreground/30" />
+                              )}
+                            </div>
+                          </td>
                           <td className="p-4 font-semibold text-xs text-foreground">
                             {cat.name}
                           </td>
@@ -113,7 +97,7 @@ export default async function AdminCategoriesPage() {
                       ))
                     ) : (
                       <tr>
-                        <td colSpan={5} className="p-8 text-center text-muted-foreground text-xs">
+                        <td colSpan={6} className="p-8 text-center text-muted-foreground text-xs">
                           No categories defined yet. Add your first category!
                         </td>
                       </tr>
@@ -133,35 +117,7 @@ export default async function AdminCategoriesPage() {
               <CardDescription>Define a new classification tag.</CardDescription>
             </CardHeader>
             <CardContent>
-              <form action={handleCreateCategory} className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="name">Category Name *</Label>
-                  <Input id="name" name="name" required placeholder="e.g. Sneakers" />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="description">Description</Label>
-                  <Textarea id="description" name="description" placeholder="Description of category..." rows={3} />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="sort_order">Sort Order</Label>
-                  <Input id="sort_order" name="sort_order" type="number" defaultValue={0} />
-                </div>
-
-                <div className="flex items-center justify-between border p-3 rounded-xl bg-muted/20">
-                  <div className="space-y-0.5">
-                    <Label htmlFor="is_active">Active Category</Label>
-                    <p className="text-[10px] text-muted-foreground">Visible in collections.</p>
-                  </div>
-                  {/* Since simple HTML forms do not submit switches natively, we'll use a hidden input pattern or checkbox */}
-                  <input type="checkbox" id="is_active" name="is_active" value="true" defaultChecked className="h-4 w-4 accent-primary rounded cursor-pointer" />
-                </div>
-
-                <Button type="submit" className="w-full rounded-full font-semibold gap-1.5 mt-2">
-                  <Plus className="h-4 w-4" /> Create Category
-                </Button>
-              </form>
+              <CategoryForm />
             </CardContent>
           </Card>
         </div>
