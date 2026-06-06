@@ -203,7 +203,7 @@ export default async function HomePage() {
               asChild
               className="rounded-full gap-2 border-primary/20 hover:bg-primary/5"
             >
-              <Link href="/products?sort=newest">
+              <Link href="/new-arrivals">
                 View All <ArrowRight className="h-4 w-4" />
               </Link>
             </Button>
@@ -273,7 +273,7 @@ export default async function HomePage() {
               asChild
               className="rounded-full gap-2 border-primary/20 hover:bg-primary/5"
             >
-              <Link href="/products?sort=popular">
+              <Link href="/best-sellers">
                 View All <ArrowRight className="h-4 w-4" />
               </Link>
             </Button>

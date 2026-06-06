@@ -85,10 +85,10 @@ export function Navbar({ categories = [] }: NavbarProps) {
     { label: "Home", href: "/" },
     ...categories.map((cat) => ({
       label: cat.name,
-      href: `/products?category=${cat.slug}`,
+      href: `/categories/${cat.slug}`,
     })),
-    { label: "New Arrivals", href: "/products?sort=newest" },
-    { label: "Best Sellers", href: "/products?sort=popular" },
+    { label: "New Arrivals", href: "/new-arrivals" },
+    { label: "Best Sellers", href: "/best-sellers" },
   ];
 
   return (

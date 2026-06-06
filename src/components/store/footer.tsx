@@ -97,8 +97,8 @@ export function Footer() {
             </h4>
             <div className="flex flex-col gap-2">
               {[
-                { label: "New Arrivals", href: "/products?sort=newest" },
-                { label: "Best Sellers", href: "/products?sort=popular" },
+                { label: "New Arrivals", href: "/new-arrivals" },
+                { label: "Best Sellers", href: "/best-sellers" },
                 { label: "Men", href: "/products?gender=men" },
                 { label: "Women", href: "/products?gender=women" },
                 { label: "Kids", href: "/products?gender=kids" },

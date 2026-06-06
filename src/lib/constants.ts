@@ -83,8 +83,8 @@ export const NAV_LINKS = [
   { label: "Men", href: "/products?gender=men", hasDropdown: true, gender: "men" },
   { label: "Women", href: "/products?gender=women", hasDropdown: true, gender: "women" },
   { label: "Kids", href: "/products?gender=kids", hasDropdown: true, gender: "kids" },
-  { label: "New Arrivals", href: "/products?sort=newest" },
-  { label: "Best Sellers", href: "/products?sort=popular" },
+  { label: "New Arrivals", href: "/new-arrivals" },
+  { label: "Best Sellers", href: "/best-sellers" },
 ] as const;
 
 export const ITEMS_PER_PAGE = 12;
