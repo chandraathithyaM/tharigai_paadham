@@ -1,39 +1,16 @@
-import { getAllBanners, createBanner, deleteBanner } from "@/actions/store";
+import { getAllBanners, deleteBanner } from "@/actions/store";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { ImageIcon, Plus, Trash2, Link as LinkIcon } from "lucide-react";
+import { ImageIcon, Trash2, Link as LinkIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { BannerForm } from "@/components/admin/banner-form";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 export default async function AdminBannersPage() {
   const banners = await getAllBanners();
 
-  // Server actions
-  async function handleCreateBanner(formData: FormData) {
-    "use server";
-    const title = formData.get("title") as string;
-    const subtitle = formData.get("subtitle") as string;
-    const image_url = formData.get("image_url") as string;
-    const link_url = formData.get("link_url") as string;
-    const sort_order = parseInt(formData.get("sort_order") as string) || 0;
 
-    if (!title || !image_url) return;
-
-    await createBanner({
-      title,
-      subtitle: subtitle || null,
-      image_url,
-      link_url: link_url || null,
-      sort_order,
-      is_active: true,
-    });
-
-    revalidatePath("/admin/banners");
-    redirect("/admin/banners");
-  }
 
   async function handleDeleteBanner(formData: FormData) {
     "use server";
@@ -140,36 +117,7 @@ export default async function AdminBannersPage() {
               <CardDescription>Configure a new hero slide banner.</CardDescription>
             </CardHeader>
             <CardContent>
-              <form action={handleCreateBanner} className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="title">Slide Title *</Label>
-                  <Input id="title" name="title" required placeholder="e.g. Summer Collection 2026" />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="subtitle">Subtitle / Promotion Text</Label>
-                  <Input id="subtitle" name="subtitle" placeholder="e.g. Get up to 50% off on premium styles" />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="image_url">Image URL *</Label>
-                  <Input id="image_url" name="image_url" required placeholder="https://example.com/banner.jpg" />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="link_url">Target Link URL (Optional)</Label>
-                  <Input id="link_url" name="link_url" placeholder="e.g. /products?gender=men" />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="sort_order">Sort Order</Label>
-                  <Input id="sort_order" name="sort_order" type="number" defaultValue={0} />
-                </div>
-
-                <Button type="submit" className="w-full rounded-full font-semibold gap-1.5 mt-2">
-                  <Plus className="h-4 w-4" /> Create Banner
-                </Button>
-              </form>
+              <BannerForm />
             </CardContent>
           </Card>
         </div>
