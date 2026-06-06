@@ -39,79 +39,108 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-inter);
+  --font-heading: var(--font-outfit);
   --font-mono: var(--font-geist-mono);
 }
 
+/* ═══════════════════════════════════════════
+   ECO-INSPIRED LIGHT THEME — Cream & Green
+   ═══════════════════════════════════════════ */
 :root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
+  --radius: 0.75rem;
+  /* Cream / Ivory backgrounds */
+  --background: oklch(0.975 0.005 85);
+  --foreground: oklch(0.18 0.04 145);
+  /* Card: soft warm white */
+  --card: oklch(0.99 0.003 85);
+  --card-foreground: oklch(0.18 0.04 145);
+  /* Popover */
+  --popover: oklch(0.99 0.003 85);
+  --popover-foreground: oklch(0.18 0.04 145);
+  /* Primary: Deep forest green */
+  --primary: oklch(0.35 0.12 145);
+  --primary-foreground: oklch(0.97 0.005 85);
+  /* Secondary: Warm sand */
+  --secondary: oklch(0.94 0.012 80);
+  --secondary-foreground: oklch(0.25 0.06 145);
+  /* Muted: Light sage */
+  --muted: oklch(0.95 0.015 140);
+  --muted-foreground: oklch(0.45 0.03 145);
+  /* Accent: Soft leaf green */
+  --accent: oklch(0.92 0.03 145);
+  --accent-foreground: oklch(0.25 0.08 145);
+  /* Destructive */
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.714);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  /* Borders: subtle warm green tint */
+  --border: oklch(0.90 0.015 140);
+  --input: oklch(0.91 0.012 140);
+  --ring: oklch(0.50 0.10 145);
+  /* Charts: nature palette */
+  --chart-1: oklch(0.50 0.14 145);
+  --chart-2: oklch(0.60 0.10 85);
+  --chart-3: oklch(0.45 0.08 30);
+  --chart-4: oklch(0.65 0.16 140);
+  --chart-5: oklch(0.55 0.12 75);
+  /* Sidebar */
+  --sidebar: oklch(0.97 0.008 85);
+  --sidebar-foreground: oklch(0.18 0.04 145);
+  --sidebar-primary: oklch(0.35 0.12 145);
+  --sidebar-primary-foreground: oklch(0.97 0.005 85);
+  --sidebar-accent: oklch(0.93 0.02 140);
+  --sidebar-accent-foreground: oklch(0.25 0.06 145);
+  --sidebar-border: oklch(0.90 0.015 140);
+  --sidebar-ring: oklch(0.50 0.10 145);
 }
 
+/* ═══════════════════════════════════════════
+   ECO-INSPIRED DARK THEME — Forest Night
+   ═══════════════════════════════════════════ */
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.985 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
+  /* Deep forest backgrounds */
+  --background: oklch(0.14 0.03 145);
+  --foreground: oklch(0.93 0.01 85);
+  /* Card: slightly lighter forest */
+  --card: oklch(0.19 0.035 145);
+  --card-foreground: oklch(0.93 0.01 85);
+  /* Popover */
+  --popover: oklch(0.19 0.035 145);
+  --popover-foreground: oklch(0.93 0.01 85);
+  /* Primary: Luminous sage green */
+  --primary: oklch(0.72 0.14 145);
+  --primary-foreground: oklch(0.14 0.03 145);
+  /* Secondary: Dark bark */
+  --secondary: oklch(0.24 0.025 145);
+  --secondary-foreground: oklch(0.90 0.01 85);
+  /* Muted: Forest floor */
+  --muted: oklch(0.22 0.03 145);
+  --muted-foreground: oklch(0.62 0.04 145);
+  /* Accent: Emerald glow */
+  --accent: oklch(0.25 0.04 145);
+  --accent-foreground: oklch(0.90 0.01 85);
+  /* Destructive */
   --destructive: oklch(0.396 0.141 25.723);
   --destructive-foreground: oklch(0.637 0.237 25.331);
-  --border: oklch(0.269 0 0);
-  --input: oklch(0.269 0 0);
-  --ring: oklch(0.439 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(0.269 0 0);
-  --sidebar-ring: oklch(0.439 0 0);
+  /* Borders: subtle green edges */
+  --border: oklch(0.26 0.03 145);
+  --input: oklch(0.26 0.03 145);
+  --ring: oklch(0.50 0.10 145);
+  /* Charts */
+  --chart-1: oklch(0.60 0.16 145);
+  --chart-2: oklch(0.65 0.12 85);
+  --chart-3: oklch(0.55 0.10 30);
+  --chart-4: oklch(0.70 0.14 140);
+  --chart-5: oklch(0.60 0.10 75);
+  /* Sidebar */
+  --sidebar: oklch(0.17 0.03 145);
+  --sidebar-foreground: oklch(0.93 0.01 85);
+  --sidebar-primary: oklch(0.60 0.16 145);
+  --sidebar-primary-foreground: oklch(0.93 0.01 85);
+  --sidebar-accent: oklch(0.24 0.035 145);
+  --sidebar-accent-foreground: oklch(0.90 0.01 85);
+  --sidebar-border: oklch(0.26 0.03 145);
+  --sidebar-ring: oklch(0.50 0.10 145);
 }
 
 @layer base {
@@ -122,9 +151,14 @@
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-outfit), var(--font-inter), system-ui, sans-serif;
+  }
 }
 
-/* Premium scrollbar */
+/* ═══════════════════════════════
+   PREMIUM ECO SCROLLBAR
+   ═══════════════════════════════ */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -135,15 +169,17 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: oklch(0.7 0 0);
+  background: oklch(0.55 0.08 145);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: oklch(0.5 0 0);
+  background: oklch(0.40 0.10 145);
 }
 
-/* Smooth animations */
+/* ═══════════════════════════════
+   NATURE-THEMED ANIMATIONS
+   ═══════════════════════════════ */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
@@ -164,6 +200,38 @@
   100% { background-position: 200% 0; }
 }
 
+@keyframes leafFloat {
+  0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+  10% { opacity: 0.6; }
+  90% { opacity: 0.6; }
+  100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+}
+
+@keyframes sway {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+
+@keyframes breathe {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.05); opacity: 1; }
+}
+
+@keyframes gentleFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInScale {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
 .animate-fade-in {
   animation: fadeIn 0.5s ease-out forwards;
 }
@@ -177,47 +245,184 @@
 }
 
 .animate-shimmer {
-  background: linear-gradient(90deg, transparent 33%, oklch(0.9 0 0 / 0.4) 50%, transparent 67%);
+  background: linear-gradient(90deg, transparent 33%, oklch(0.55 0.08 145 / 0.15) 50%, transparent 67%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
 }
 
-/* Product card hover effect */
+.animate-leaf-float {
+  animation: leafFloat 15s linear infinite;
+}
+
+.animate-sway {
+  animation: sway 4s ease-in-out infinite;
+}
+
+.animate-breathe {
+  animation: breathe 3s ease-in-out infinite;
+}
+
+.animate-gentle-float {
+  animation: gentleFloat 4s ease-in-out infinite;
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+/* ═══════════════════════════════
+   ECO CARD HOVER EFFECT
+   ═══════════════════════════════ */
 .product-card-hover {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .product-card-hover:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 40px oklch(0 0 0 / 0.1);
+  transform: translateY(-6px);
+  box-shadow:
+    0 20px 40px oklch(0.35 0.12 145 / 0.08),
+    0 8px 16px oklch(0.35 0.12 145 / 0.04);
 }
 
 .dark .product-card-hover:hover {
-  box-shadow: 0 20px 40px oklch(0 0 0 / 0.4);
+  box-shadow:
+    0 20px 40px oklch(0 0 0 / 0.3),
+    0 0 30px oklch(0.50 0.12 145 / 0.06);
 }
 
-/* Glass effect */
+/* ═══════════════════════════════
+   GREEN GLASSMORPHISM
+   ═══════════════════════════════ */
 .glass {
-  background: oklch(1 0 0 / 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: oklch(0.97 0.005 85 / 0.75);
+  backdrop-filter: blur(16px) saturate(1.4);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
 }
 
 .dark .glass {
-  background: oklch(0.15 0 0 / 0.7);
+  background: oklch(0.16 0.03 145 / 0.75);
+  backdrop-filter: blur(16px) saturate(1.4);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
 }
 
-/* Gradient text */
+/* ═══════════════════════════════
+   ECO GRADIENT TEXT
+   ═══════════════════════════════ */
 .gradient-text {
-  background: linear-gradient(135deg, oklch(0.2 0 0), oklch(0.5 0.1 250));
+  background: linear-gradient(135deg, oklch(0.30 0.10 145), oklch(0.50 0.14 145));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .dark .gradient-text {
-  background: linear-gradient(135deg, oklch(0.95 0 0), oklch(0.7 0.15 250));
+  background: linear-gradient(135deg, oklch(0.75 0.14 145), oklch(0.60 0.10 85));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+/* Gold gradient for premium accents */
+.gradient-text-gold {
+  background: linear-gradient(135deg, oklch(0.55 0.12 75), oklch(0.65 0.14 85));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.dark .gradient-text-gold {
+  background: linear-gradient(135deg, oklch(0.70 0.14 85), oklch(0.80 0.12 75));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ═══════════════════════════════
+   LEAF DECORATION UTILITIES
+   ═══════════════════════════════ */
+.leaf-divider {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.leaf-divider::before,
+.leaf-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    oklch(0.50 0.10 145 / 0.3),
+    transparent
+  );
+}
+
+/* Section background patterns */
+.eco-section-light {
+  background:
+    radial-gradient(ellipse at 20% 50%, oklch(0.55 0.08 145 / 0.04) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 50%, oklch(0.60 0.10 85 / 0.04) 0%, transparent 50%);
+}
+
+.dark .eco-section-light {
+  background:
+    radial-gradient(ellipse at 20% 50%, oklch(0.50 0.10 145 / 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 50%, oklch(0.45 0.08 85 / 0.04) 0%, transparent 50%);
+}
+
+/* Eco badge styling */
+.eco-badge {
+  background: linear-gradient(135deg, oklch(0.92 0.03 145), oklch(0.95 0.015 85));
+  color: oklch(0.30 0.10 145);
+  border: 1px solid oklch(0.85 0.04 145);
+}
+
+.dark .eco-badge {
+  background: linear-gradient(135deg, oklch(0.22 0.04 145), oklch(0.25 0.03 145));
+  color: oklch(0.75 0.12 145);
+  border: 1px solid oklch(0.30 0.04 145);
+}
+
+/* Hero gradient overlay */
+.hero-gradient {
+  background: linear-gradient(
+    135deg,
+    oklch(0.22 0.06 145 / 0.95) 0%,
+    oklch(0.30 0.08 145 / 0.85) 30%,
+    oklch(0.35 0.10 145 / 0.70) 60%,
+    oklch(0.40 0.08 145 / 0.50) 100%
+  );
+}
+
+/* Premium CTA button gradient */
+.eco-btn-gradient {
+  background: linear-gradient(135deg, oklch(0.40 0.12 145), oklch(0.50 0.14 145));
+  transition: all 0.3s ease;
+}
+
+.eco-btn-gradient:hover {
+  background: linear-gradient(135deg, oklch(0.45 0.14 145), oklch(0.55 0.16 145));
+  box-shadow: 0 8px 24px oklch(0.40 0.12 145 / 0.3);
+}
+
+/* Sustainable footer */
+.eco-footer {
+  background: linear-gradient(
+    180deg,
+    oklch(0.22 0.06 145),
+    oklch(0.16 0.04 145)
+  );
+  color: oklch(0.90 0.01 85);
+}
+
+.dark .eco-footer {
+  background: linear-gradient(
+    180deg,
+    oklch(0.12 0.025 145),
+    oklch(0.08 0.02 145)
+  );
 }

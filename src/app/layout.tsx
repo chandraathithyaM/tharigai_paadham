@@ -1,53 +1,53 @@
 import type { Metadata, Viewport } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, Outfit } from "next/font/google";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Toaster } from "sonner";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const outfit = Outfit({
+  variable: "--font-outfit",
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
   title: {
-    default: "Tharigai Paadham Footwear | Premium Footwear Collection",
-    template: "%s | Tharigai Paadham Footwear",
+    default: "தரிகை பாதம் | Eco-Conscious Premium Footwear",
+    template: "%s | தரிகை பாதம்",
   },
   description:
-    "Shop premium footwear at Tharigai Paadham - Sneakers, Crocs, Slides, Formal Shoes, Casual Shoes, Running Shoes & more. Best prices with free shipping.",
+    "Eco-conscious premium footwear rooted in Tamil heritage. Sustainable sneakers, handcrafted sandals, and nature-inspired designs — walk gently on earth with Tharigai Paadham.",
   keywords: [
-    "footwear",
-    "shoes",
-    "sneakers",
-    "crocs",
-    "slides",
-    "formal shoes",
-    "running shoes",
+    "eco footwear",
+    "sustainable shoes",
+    "Tamil brand",
     "Tharigai Paadham",
+    "தரிகை பாதம்",
+    "eco-friendly sneakers",
+    "handcrafted sandals",
+    "nature-inspired footwear",
     "Puliampatti",
-    "online shoe store",
+    "premium footwear India",
   ],
-  authors: [{ name: "Tharigai Paadham Footwear" }],
-  creator: "Tharigai Paadham Footwear",
+  authors: [{ name: "தரிகை பாதம் — Tharigai Paadham" }],
+  creator: "தரிகை பாதம்",
   openGraph: {
     type: "website",
     locale: "en_IN",
-    siteName: "Tharigai Paadham Footwear",
-    title: "Tharigai Paadham Footwear | Premium Footwear Collection",
+    siteName: "தரிகை பாதம் — Tharigai Paadham",
+    title: "தரிகை பாதம் | Eco-Conscious Premium Footwear",
     description:
-      "Shop premium footwear - Sneakers, Crocs, Slides, Formal Shoes & more. Best prices with free shipping.",
+      "Eco-conscious premium footwear rooted in Tamil heritage. Walk gently on earth with Tharigai Paadham.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tharigai Paadham Footwear",
-    description: "Premium footwear collection with best prices.",
+    title: "தரிகை பாதம் — Tharigai Paadham",
+    description: "Eco-conscious premium footwear rooted in Tamil heritage.",
   },
   robots: {
     index: true,
@@ -56,14 +56,14 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "Tharigai Paadham",
+    title: "தரிகை பாதம்",
   },
 };
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
+    { media: "(prefers-color-scheme: light)", color: "#f5f0e8" },
+    { media: "(prefers-color-scheme: dark)", color: "#0d1f0a" },
   ],
   width: "device-width",
   initialScale: 1,
@@ -80,7 +80,7 @@ export default function RootLayout({
       <html
         lang="en"
         suppressHydrationWarning
-        className={`${geistSans.variable} ${geistMono.variable}`}
+        className={`${inter.variable} ${outfit.variable}`}
       >
         <body className="min-h-screen bg-background font-sans antialiased">
           <ThemeProvider

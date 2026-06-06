@@ -35,13 +35,32 @@ function InstagramIcon({ className }: { className?: string }) {
     </svg>
   );
 }
+
+function LeafIcon() {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="text-primary"
+    >
+      <path d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75" />
+    </svg>
+  );
+}
+
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
 import { Badge } from "@/components/ui/badge";
 import { ThemeToggle } from "@/components/shared/theme-toggle";
 import { useCartStore } from "@/stores/cart-store";
 import { useWishlistStore } from "@/stores/wishlist-store";
-import { SITE_NAME } from "@/lib/constants";
+import { SITE_NAME, SITE_NAME_EN } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import type { Category } from "@/types";
 
@@ -73,7 +92,7 @@ export function Navbar({ categories = [] }: NavbarProps) {
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full border-b glass">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         {/* Mobile menu */}
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -83,7 +102,56 @@ export function Navbar({ categories = [] }: NavbarProps) {
             </Button>
           </SheetTrigger>
           <SheetContent side="left" className="w-72">
-            <SheetTitle className="text-lg font-bold">{SITE_NAME}</SheetTitle>
+            {/* Botanical decoration */}
+            <div className="absolute top-0 left-0 right-0 h-32 opacity-10 overflow-hidden pointer-events-none">
+              <svg
+                width="100%"
+                height="100%"
+                viewBox="0 0 300 120"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="text-primary"
+              >
+                <path
+                  d="M50 80C50 80 70 40 120 30C170 20 180 60 180 60"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  opacity="0.5"
+                />
+                <path
+                  d="M120 30C120 30 100 10 130 5C160 0 150 30 150 30"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  fill="currentColor"
+                  fillOpacity="0.1"
+                />
+                <path
+                  d="M140 45C140 45 160 20 180 25C200 30 175 50 175 50"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  fill="currentColor"
+                  fillOpacity="0.1"
+                />
+                <path
+                  d="M80 60C80 60 60 35 85 25C110 15 100 50 100 50"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  fill="currentColor"
+                  fillOpacity="0.1"
+                />
+                <path
+                  d="M200 70C200 70 220 30 270 25C270 25 250 50 230 60C210 70 200 70 200 70"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  fill="currentColor"
+                  fillOpacity="0.08"
+                />
+              </svg>
+            </div>
+            <SheetTitle className="text-lg font-bold gradient-text flex items-center gap-2">
+              <LeafIcon />
+              {SITE_NAME}
+            </SheetTitle>
             <nav className="mt-8 flex flex-col gap-4">
               {navLinks.map((link) => {
                 const isLinkActive = link.href.includes("?")
@@ -115,6 +183,7 @@ export function Navbar({ categories = [] }: NavbarProps) {
           href="/"
           className="flex items-center gap-2 font-bold text-lg tracking-tight"
         >
+          <LeafIcon />
           <span className="hidden sm:inline gradient-text">
             {SITE_NAME}
           </span>
@@ -141,7 +210,7 @@ export function Navbar({ categories = [] }: NavbarProps) {
               >
                 {link.label}
                 {isLinkActive && (
-                  <span className="absolute -bottom-[21px] left-0 right-0 h-0.5 bg-primary animate-in fade-in" />
+                  <span className="absolute -bottom-[21px] left-1/2 -translate-x-1/2 h-1.5 w-1.5 rounded-full bg-primary" />
                 )}
               </Link>
             );

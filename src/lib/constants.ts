@@ -1,6 +1,10 @@
-export const SITE_NAME = "Tharigai Paadham Footwear";
+export const SITE_NAME = "தரிகை பாதம்";
+export const SITE_NAME_EN = "Tharigai Paadham";
+export const BRAND_SLOGAN = "முள்ளுக்கு நன்றி";
+export const BRAND_SLOGAN_EN = "Grateful for Every Thorn";
+export const BRAND_TAGLINE = "Rooted in Nature. Crafted for You.";
 export const SITE_DESCRIPTION =
-  "Premium footwear collection - Sneakers, Crocs, Slides, Formal Shoes, Casual Shoes, Running Shoes & more. Shop online with free shipping.";
+  "Eco-conscious premium footwear rooted in Tamil heritage. Sustainable sneakers, handcrafted sandals, and nature-inspired designs — walk gently on earth with Tharigai Paadham.";
 
 export const WHATSAPP_NUMBER = "+919688822826";
 export const WHATSAPP_MESSAGE =

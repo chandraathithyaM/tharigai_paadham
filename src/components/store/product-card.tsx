@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Heart, ShoppingBag, Star } from "lucide-react";
+import { Heart, ShoppingBag, Star, Leaf } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
@@ -65,46 +65,46 @@ export function ProductCard({ product }: ProductCardProps) {
 
   return (
     <Link href={`/products/${product.slug}`}>
-      <Card className="group overflow-hidden product-card-hover border-0 shadow-sm hover:shadow-lg bg-card">
-        <div className="relative aspect-square overflow-hidden bg-muted">
+      <Card className="group overflow-hidden product-card-hover border border-border/50 shadow-sm hover:shadow-lg bg-card rounded-2xl">
+        <div className="relative aspect-square overflow-hidden bg-muted/50 rounded-t-2xl">
           {primaryImage?.url && (
             <Image
               src={primaryImage.url}
               alt={primaryImage.alt_text || product.name}
               fill
-              className="object-cover transition-transform duration-500 group-hover:scale-110"
+              className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
               sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
             />
           )}
 
-          {/* Discount badge */}
+          {/* Eco-styled discount badge */}
           {discount > 0 && (
-            <Badge className="absolute top-3 left-3 bg-red-500 hover:bg-red-500 text-white">
+            <Badge className="absolute top-3 left-3 eco-badge font-semibold text-xs rounded-full px-2.5 py-0.5">
               -{discount}%
             </Badge>
           )}
 
-          {/* Wishlist button */}
+          {/* Wishlist button — green when active */}
           <button
             onClick={handleToggleWishlist}
-            className="absolute top-3 right-3 h-9 w-9 rounded-full bg-white/90 dark:bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110 shadow-sm"
+            className="absolute top-3 right-3 h-9 w-9 rounded-full bg-white/90 dark:bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110 shadow-sm backdrop-blur-sm"
             aria-label={isInWishlist ? "Remove from wishlist" : "Add to wishlist"}
           >
             <Heart
               className={`h-4 w-4 transition-colors ${
-                isInWishlist ? "fill-red-500 text-red-500" : "text-gray-600"
+                isInWishlist ? "fill-primary text-primary" : "text-muted-foreground"
               }`}
             />
           </button>
 
-          {/* Quick add button */}
+          {/* Quick add button — eco gradient */}
           <div className="absolute bottom-0 left-0 right-0 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
             <Button
               onClick={handleAddToCart}
-              className="w-full gap-2 bg-primary/90 backdrop-blur-sm"
+              className="w-full gap-2 eco-btn-gradient text-white border-0 rounded-xl"
               size="sm"
             >
-              <ShoppingBag className="h-4 w-4" />
+              <Leaf className="h-3.5 w-3.5" />
               Add to Cart
             </Button>
           </div>
@@ -113,7 +113,7 @@ export function ProductCard({ product }: ProductCardProps) {
         <CardContent className="p-4 space-y-2">
           {/* Brand */}
           {product.brand && (
-            <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+            <p className="text-xs font-medium text-primary/70 uppercase tracking-wider">
               {product.brand}
             </p>
           )}
@@ -126,7 +126,7 @@ export function ProductCard({ product }: ProductCardProps) {
           {/* Rating */}
           {product.review_count > 0 && (
             <div className="flex items-center gap-1">
-              <Star className="h-3.5 w-3.5 fill-yellow-400 text-yellow-400" />
+              <Star className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />
               <span className="text-xs font-medium">{product.avg_rating}</span>
               <span className="text-xs text-muted-foreground">
                 ({product.review_count})
@@ -135,8 +135,8 @@ export function ProductCard({ product }: ProductCardProps) {
           )}
 
           {/* Price */}
-          <div className="flex items-center gap-2">
-            <span className="font-bold text-base">
+          <div className="flex items-center gap-2 pt-1">
+            <span className="font-bold text-base text-primary">
               {formatPrice(effectivePrice)}
             </span>
             {discount > 0 && (
