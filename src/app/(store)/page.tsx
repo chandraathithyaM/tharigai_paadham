@@ -6,6 +6,7 @@ import {
   TreePine,
   Heart,
   Sparkles,
+  Award,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -79,6 +80,41 @@ export default async function HomePage() {
 
   return (
     <div className="space-y-0">
+      {/* Mobile-only quick navigation: Categories, New Arrivals, Best Sellers */}
+      <div className="block lg:hidden bg-background border-b py-4 overflow-x-auto scrollbar-none">
+        <div className="flex gap-5 px-4 min-w-max">
+          {/* New Arrivals */}
+          <Link href="/new-arrivals" className="flex flex-col items-center group">
+            <div className="h-14 w-14 rounded-full bg-gradient-to-tr from-green-500/20 to-emerald-600/30 flex items-center justify-center border border-green-500/20 group-hover:border-green-500/40 transition-all duration-300">
+              <Sparkles className="h-6 w-6 text-green-700 dark:text-green-400" />
+            </div>
+            <span className="text-[10px] font-semibold text-muted-foreground group-hover:text-foreground mt-1.5 transition-colors">New Drops</span>
+          </Link>
+
+          {/* Best Sellers */}
+          <Link href="/best-sellers" className="flex flex-col items-center group">
+            <div className="h-14 w-14 rounded-full bg-gradient-to-tr from-amber-500/20 to-orange-600/30 flex items-center justify-center border border-amber-500/20 group-hover:border-amber-500/40 transition-all duration-300">
+              <Award className="h-6 w-6 text-amber-700 dark:text-amber-400" />
+            </div>
+            <span className="text-[10px] font-semibold text-muted-foreground group-hover:text-foreground mt-1.5 transition-colors">Bestsellers</span>
+          </Link>
+
+          {/* Categories */}
+          {categories.map((category) => (
+            <Link key={category.id} href={`/categories/${category.slug}`} className="flex flex-col items-center group">
+              <div className="h-14 w-14 rounded-full border border-border/80 overflow-hidden bg-muted flex items-center justify-center group-hover:border-primary/40 transition-all duration-300 relative">
+                {category.image_url ? (
+                  <img src={category.image_url} alt={category.name} className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110" />
+                ) : (
+                  <span className="text-sm font-bold text-muted-foreground">{category.name.charAt(0)}</span>
+                )}
+              </div>
+              <span className="text-[10px] font-semibold text-muted-foreground group-hover:text-foreground mt-1.5 transition-colors">{category.name}</span>
+            </Link>
+          ))}
+        </div>
+      </div>
+
       {/* ══════════════════════════════
           HERO BANNER
           ══════════════════════════════ */}
