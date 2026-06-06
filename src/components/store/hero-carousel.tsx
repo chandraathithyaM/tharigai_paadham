@@ -76,12 +76,20 @@ export function HeroCarousel({ banners }: HeroCarouselProps) {
   if (!banners.length) {
     return (
       <section className="relative min-h-[85vh] md:min-h-[90vh] overflow-hidden flex items-center justify-center">
-        {/* Layered gradient background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#1a3a0a] via-[#2d5016] to-[#1a4020]" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-black/10" />
+        {/* Local fallback background image */}
+        <Image
+          src="/images/hero-banner.png"
+          alt="Tharigai Paadham Eco Footwear"
+          fill
+          className="object-cover"
+          priority
+        />
+        {/* Dark overlay for readability */}
+        <div className="absolute inset-0 bg-black/60 backdrop-blur-[1px]" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-black/40 to-black/55" />
 
         {/* Animated radial glow */}
-        <div className="absolute inset-0 opacity-30">
+        <div className="absolute inset-0 opacity-20">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-radial from-green-400/20 via-transparent to-transparent rounded-full animate-breathe" />
         </div>
 
@@ -174,6 +182,16 @@ export function HeroCarousel({ banners }: HeroCarouselProps) {
      ══════════════════════════════════════════════════ */
   return (
     <section className="relative h-[50vh] md:h-[70vh] overflow-hidden group">
+      {/* Brand slogan overlay on top-left of the banners */}
+      <div className="absolute top-6 left-6 z-20 flex flex-col items-start gap-1 pointer-events-none md:top-8 md:left-8">
+        <span className="text-xs md:text-sm font-semibold tracking-wider text-white drop-shadow-md bg-black/35 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10 flex items-center gap-2 animate-fade-in">
+          <Leaf className="h-3.5 w-3.5 text-primary animate-pulse" />
+          <span>{BRAND_SLOGAN}</span>
+          <span className="text-[10px] opacity-40">|</span>
+          <span className="text-[10px] text-white/80 italic font-light tracking-normal">{BRAND_SLOGAN_EN}</span>
+        </span>
+      </div>
+
       {banners.map((banner, index) => (
         <div
           key={banner.id}
