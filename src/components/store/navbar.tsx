@@ -13,6 +13,7 @@ import {
   ShoppingBag,
   Heart,
   Menu,
+  Shield,
 } from "lucide-react";
 
 function InstagramIcon({ className }: { className?: string }) {
@@ -66,9 +67,10 @@ import type { Category } from "@/types";
 
 interface NavbarProps {
   categories?: Category[];
+  isAdmin?: boolean;
 }
 
-export function Navbar({ categories = [] }: NavbarProps) {
+export function Navbar({ categories = [], isAdmin = false }: NavbarProps) {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [activeQuery, setActiveQuery] = useState("");
@@ -174,6 +176,16 @@ export function Navbar({ categories = [] }: NavbarProps) {
                   </Link>
                 );
               })}
+              {isAdmin && (
+                <Link
+                  href="/admin"
+                  onClick={() => setIsOpen(false)}
+                  className="flex items-center gap-2 text-base font-semibold text-primary hover:text-primary/80 py-2 mt-4 border-t border-border pt-4"
+                >
+                  <Shield className="h-4 w-4 text-primary" />
+                  Admin Console
+                </Link>
+              )}
             </nav>
           </SheetContent>
         </Sheet>
@@ -258,6 +270,20 @@ export function Navbar({ categories = [] }: NavbarProps) {
               )}
             </Link>
           </Button>
+
+          {isAdmin && (
+            <Button
+              variant="outline"
+              size="sm"
+              asChild
+              className="hidden md:flex ml-2 border-primary/30 hover:border-primary text-xs font-semibold gap-1.5 rounded-full hover:bg-primary/5 transition-colors"
+            >
+              <Link href="/admin">
+                <Shield className="h-3.5 w-3.5 text-primary" />
+                <span>Admin Console</span>
+              </Link>
+            </Button>
+          )}
 
           <Show when="signed-out">
             <SignInButton>
