@@ -47,9 +47,14 @@ export async function POST(req: Request) {
   const eventType = evt.type;
 
   if (eventType === "user.created") {
-    const { id, email_addresses, first_name, last_name, image_url } = evt.data;
+    const { id, email_addresses, first_name, last_name, image_url, public_metadata } = evt.data;
     const email = email_addresses[0]?.email_address || "";
     const fullName = [first_name, last_name].filter(Boolean).join(" ");
+
+    const role = (public_metadata && typeof public_metadata === "object" && "role" in public_metadata && 
+                  (public_metadata.role === "admin" || public_metadata.role === "customer"))
+                  ? (public_metadata.role as "admin" | "customer")
+                  : "customer";
 
     await supabase.from("users").upsert(
       {
@@ -57,23 +62,35 @@ export async function POST(req: Request) {
         email,
         full_name: fullName || null,
         avatar_url: image_url || null,
+        role,
       },
       { onConflict: "clerk_id" }
     );
   }
 
   if (eventType === "user.updated") {
-    const { id, email_addresses, first_name, last_name, image_url } = evt.data;
+    const { id, email_addresses, first_name, last_name, image_url, public_metadata } = evt.data;
     const email = email_addresses[0]?.email_address || "";
     const fullName = [first_name, last_name].filter(Boolean).join(" ");
 
+    const updateData: any = {
+      email,
+      full_name: fullName || null,
+      avatar_url: image_url || null,
+    };
+
+    if (
+      public_metadata &&
+      typeof public_metadata === "object" &&
+      "role" in public_metadata &&
+      (public_metadata.role === "admin" || public_metadata.role === "customer")
+    ) {
+      updateData.role = public_metadata.role;
+    }
+
     await supabase
       .from("users")
-      .update({
-        email,
-        full_name: fullName || null,
-        avatar_url: image_url || null,
-      })
+      .update(updateData)
       .eq("clerk_id", id);
   }
 

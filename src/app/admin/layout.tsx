@@ -31,10 +31,11 @@ export default async function AdminLayout({ children }: AdminLayoutProps) {
     redirect("/sign-in");
   }
 
+  const isClerkAdmin = clerkUser.publicMetadata?.role === "admin";
   let dbUser = await getUserByClerkId(clerkUser.id);
 
-  if (!dbUser && process.env.NODE_ENV === "development") {
-    console.log(`[DEV MODE] Auto-creating admin user record for Clerk ID: ${clerkUser.id}`);
+  if (!dbUser && (isClerkAdmin || process.env.NODE_ENV === "development")) {
+    console.log(`Auto-creating admin user record for Clerk ID: ${clerkUser.id}`);
     const supabase = createAdminClient();
     const { data: newUser, error } = await supabase
       .from("users")
@@ -49,10 +50,10 @@ export default async function AdminLayout({ children }: AdminLayoutProps) {
     if (!error && newUser) {
       dbUser = newUser;
     } else if (error) {
-      console.error("[DEV MODE] Failed to auto-create admin user:", error.message);
+      console.error("Failed to auto-create admin user:", error.message);
     }
-  } else if (dbUser && dbUser.role !== "admin" && process.env.NODE_ENV === "development") {
-    console.log(`[DEV MODE] Auto-promoting user ${clerkUser.id} to admin`);
+  } else if (dbUser && dbUser.role !== "admin" && (isClerkAdmin || process.env.NODE_ENV === "development")) {
+    console.log(`Auto-promoting user ${clerkUser.id} to admin`);
     const supabase = createAdminClient();
     const { data: updatedUser, error } = await supabase
       .from("users")
@@ -63,7 +64,7 @@ export default async function AdminLayout({ children }: AdminLayoutProps) {
     if (!error && updatedUser) {
       dbUser = updatedUser;
     } else if (error) {
-      console.error("[DEV MODE] Failed to auto-promote admin user:", error.message);
+      console.error("Failed to auto-promote admin user:", error.message);
     }
   }
 
