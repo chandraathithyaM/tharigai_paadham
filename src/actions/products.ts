@@ -98,10 +98,12 @@ export async function getProductBySlug(
   const { data, error } = await supabase
     .from("products")
     .select(
-      `*, category:categories(*), images:product_images(* order(sort_order)), sizes:product_sizes(* order(size)), colors:product_colors(*)`
+      `*, category:categories(*), images:product_images(*), sizes:product_sizes(*), colors:product_colors(*)`
     )
     .eq("slug", slug)
     .eq("is_active", true)
+    .order("sort_order", { referencedTable: "product_images", ascending: true })
+    .order("size", { referencedTable: "product_sizes", ascending: true })
     .single();
 
   if (error || !data) return null;
